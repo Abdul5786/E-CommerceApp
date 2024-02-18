@@ -20,3 +20,13 @@ public class ProductCategories
     @OneToMany(mappedBy = "productCategories" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> product;
 }
+
+
+
+
+
+
+
+
+
+
