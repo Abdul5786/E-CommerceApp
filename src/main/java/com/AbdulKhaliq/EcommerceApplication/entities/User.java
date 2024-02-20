@@ -37,9 +37,10 @@ public class User
    private List<Ratings> ratings = new ArrayList<>();
    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
    private List<Reviews> reviews= new ArrayList<>();
-   // private Orders orders
-    // private transactions transactions
-
+   @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+   private  Cart cart;
+   @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+   private List<Order> orderList= new ArrayList<>();
  }
 
 

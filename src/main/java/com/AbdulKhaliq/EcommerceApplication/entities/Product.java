@@ -1,5 +1,6 @@
 package com.AbdulKhaliq.EcommerceApplication.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -24,10 +25,13 @@ public class Product
     @JoinColumn(name = "product_categoriesId")
     @ManyToOne
     private ProductCategories productCategories;
+
     @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Ratings> ratings= new ArrayList<>();
     @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Reviews> reviews = new ArrayList<>();
+    @OneToMany(mappedBy = "product" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<CartItem> cartItemList= new ArrayList<>();
 
 
 }
