@@ -19,7 +19,8 @@ public class Order
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long orderId;
     private LocalDateTime orderDate;
-//    private Address ShippingAddress;
+    @OneToOne
+    private Address ShippingAddress;
     private OrderStatus orderStatus;
     @JoinColumn(name = "user_id")
     @ManyToOne

@@ -31,16 +31,19 @@ public class User
    private Roles roles;
    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch = FetchType.LAZY)
    private List<Address> address= new ArrayList<>();
+    @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private  Cart cart;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+    private List<Order> orderList= new ArrayList<>();
+
+    // in future i will add these functionalities.
 //   @OneToMany(mappedBy = "")
 //   private List<PaymentInformation> paymentInformation= new ArrayList<>();
-   @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   private List<Ratings> ratings = new ArrayList<>();
-   @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   private List<Reviews> reviews= new ArrayList<>();
-   @OneToOne(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   private  Cart cart;
-   @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
-   private List<Order> orderList= new ArrayList<>();
+//   @OneToMany(mappedBy = "user" , cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//   private List<Ratings> ratings = new ArrayList<>();
+//   @OneToMany(mappedBy = "user",cascade = CascadeType.ALL,fetch = FetchType.LAZY)
+//   private List<Reviews> reviews= new ArrayList<>();
+//----------------------------i will do it in future--------------------------------------------------------------------
  }
 
 

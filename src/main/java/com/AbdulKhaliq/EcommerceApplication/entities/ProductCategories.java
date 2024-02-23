@@ -15,8 +15,8 @@ public class ProductCategories
      @Id
      @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long productCatId;
-    private String productCategories;
-    private  String description;
+    private String productCategory;
+    private String description;
     @OneToMany(mappedBy = "productCategories" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> product;
 }
