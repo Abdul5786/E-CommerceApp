@@ -19,6 +19,16 @@ public class ProductCategories
     private String description;
     @OneToMany(mappedBy = "productCategories" ,cascade = CascadeType.ALL,fetch = FetchType.LAZY)
     private List<Product> product;
+
+    @Override
+    public String toString() {
+        return "ProductCategories{" +
+                "productCatId=" + productCatId +
+                ", productCategory='" + productCategory + '\'' +
+                ", description='" + description + '\'' +
+                ", product=" + product +
+                '}';
+    }
 }
 
 

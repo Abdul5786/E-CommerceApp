@@ -3,6 +3,8 @@ package com.AbdulKhaliq.EcommerceApplication.services.servicesImpl;
 import com.AbdulKhaliq.EcommerceApplication.entities.Product;
 import com.AbdulKhaliq.EcommerceApplication.entities.ProductCategories;
 import com.AbdulKhaliq.EcommerceApplication.exception.ResourceNotFoundException;
+import com.AbdulKhaliq.EcommerceApplication.exception.ResponseMessageException;
+import com.AbdulKhaliq.EcommerceApplication.payloads.ApiResponse;
 import com.AbdulKhaliq.EcommerceApplication.payloads.ProductDto;
 import com.AbdulKhaliq.EcommerceApplication.repositories.ProductCategoryRepo;
 import com.AbdulKhaliq.EcommerceApplication.repositories.ProductRepo;
@@ -44,14 +46,18 @@ public class ProductServiceImpl implements ProductService
         PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBY).ascending());
         Page<Product> allProduct = productRepo.findAll(pageRequest);
         List<Product> allProductList = allProduct.getContent();
-        return allProductList.stream().map(e->this.modelMapper.map(e,ProductDto.class)).collect(Collectors.toList());
-
+        List<ProductDto> productDtoList = allProductList.stream().map(product -> this.modelMapper.map(product, ProductDto.class)).collect(Collectors.toList());
+//        for (ProductDto p : productDtoList
+//        ){
+//            System.out.println(p.getProductCategories());
+//
+//    }
+        return productDtoList;
     }
 
     @Override
     public List<ProductDto> getProductsByCategory(Long catId, Integer pageSize, String sortBy, String sortingOrder)
     {
-//                                    productCategoryRepo.findByCategoryName()
 
         return  null;
     }
@@ -69,9 +75,18 @@ public class ProductServiceImpl implements ProductService
     }
 
     @Override
-    public List<ProductDto> searchProductByKeyword(String keyword, Integer pageSize, String sortBy, String sortingOrder)
+    public List<ProductDto> searchProductByKeyword(String keyword,Integer pageNumber,Integer pageSize,String sortBY)
     {
-               return null;
+        PageRequest pageRequest = PageRequest.of(pageNumber, pageSize, Sort.by(sortBY).ascending());
+        Page<Product> pageProduct = productRepo.findByTitle(keyword, pageRequest);
+        List<Product> searchProductList = pageProduct.getContent();
+        if(searchProductList.size()==0)
+        {
+            throw new ResponseMessageException("product not found"+keyword);
+        }
+
+        List<ProductDto> productDtoList = searchProductList.stream().map(p -> this.modelMapper.map(p, ProductDto.class)).collect(Collectors.toList());
+          return productDtoList;
     }
 
     @Override

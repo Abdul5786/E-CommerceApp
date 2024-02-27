@@ -19,6 +19,7 @@ public class ProductCategoryControllers
     @Autowired
     private ProductCategoryService productCategoryService;
 
+    @PostMapping(value = "/addCategory")
     public ResponseEntity<ProductCategoryDto> addProductCategory(@RequestBody ProductCategoryDto productCategoryDto)
     {
         ProductCategoryDto saved = productCategoryService.addProductCategory(productCategoryDto);
@@ -26,6 +27,7 @@ public class ProductCategoryControllers
     }
 
 
+    @GetMapping(value = "/categoryList")
     public ResponseEntity<List<ProductCategoryDto>>  getAllProductCategories(@RequestParam(name = "pageNumber",defaultValue = AppConstants.PAGE_NUMBER,required = false) Integer pageNumber,
                                                                              @RequestParam(name ="pageSize",defaultValue = AppConstants.PAGE_SIZE,required = false)  Integer pageSize,
                                                                              @RequestParam(name = "sortBy",defaultValue = AppConstants.SORT_PRODUCT_CATEGORY_BY,required = false) String sortOrder)
@@ -34,12 +36,15 @@ public class ProductCategoryControllers
         return new ResponseEntity<>(allCategories,HttpStatus.FOUND);
     }
 
+
+    @PutMapping(value = "/updateProductCategory")
     public ResponseEntity<ProductCategoryDto>   updateProductCategory(@RequestBody ProductCategoryDto productCategoryDto)
     {
         ProductCategoryDto updatedProductCategory = productCategoryService.updateProductCategoryByName(productCategoryDto);
         return new ResponseEntity<>(updatedProductCategory,HttpStatus.OK);
     }
 
+    @DeleteMapping(value = "/deleteProduct/{productCatId}")
     public ResponseEntity<ApiResponse> deleteProductCategoryById(@PathVariable Long productCatId)
     {
         String s = productCategoryService.deleteProductCategory(productCatId);

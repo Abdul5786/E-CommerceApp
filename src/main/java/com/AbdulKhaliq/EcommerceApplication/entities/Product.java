@@ -2,7 +2,9 @@ package com.AbdulKhaliq.EcommerceApplication.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.util.ArrayList;
@@ -12,6 +14,8 @@ import java.util.List;
 @Table(name = "Product_table")
 @Getter
 @Setter
+@AllArgsConstructor
+@NoArgsConstructor
 public class Product
 {
     @Id
@@ -21,7 +25,7 @@ public class Product
     private int price;
     private int discountedPrice;
     private int  quantities;
-    private int  brand ;
+    private String  brand ;
     @JoinColumn(name = "product_categoriesId")
     @ManyToOne
     private ProductCategories productCategories;

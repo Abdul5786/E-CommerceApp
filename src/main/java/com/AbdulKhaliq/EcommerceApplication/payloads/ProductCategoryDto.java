@@ -14,4 +14,13 @@ public class ProductCategoryDto
     private Long productCatId;
     private String productCategory;
     private  String description;
+
+    @Override
+    public String toString() {
+        return "ProductCategoryDto{" +
+                "productCatId=" + productCatId +
+                ", productCategory='" + productCategory + '\'' +
+                ", description='" + description + '\'' +
+                '}';
+    }
 }

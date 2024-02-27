@@ -16,7 +16,7 @@ public interface ProductService
 
 //   ProductDto updateProductImage()  i will do it later
 
-    List<ProductDto> searchProductByKeyword(String keyword,Integer pageSize,String sortBy,String sortingOrder);
+    List<ProductDto> searchProductByKeyword(String keyword,Integer pageNumber,Integer pageSize,String sortBY);
 
     String deleteProduct(Long productId);
 
