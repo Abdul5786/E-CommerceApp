@@ -12,6 +12,7 @@ public interface ProductService
     List<ProductDto> getAllProducts(Integer pageNumber,Integer pageSize,String sortBY);
     List<ProductDto> getProductsByCategory(Long catId,Integer pageSize,String sortBy,String sortingOrder); // to search order by category
 
+    ProductDto getProductById(Long productId);
     ProductDto updateProduct(ProductDto productDto,Long productId);
 
 //   ProductDto updateProductImage()  i will do it later

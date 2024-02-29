@@ -13,6 +13,7 @@ public class ProductDto
      private Long productId;
      private String title;
      private int price;
+     private String image;
      private  int discountedPrice;
      private int  quantities;
      private  String  brand ;

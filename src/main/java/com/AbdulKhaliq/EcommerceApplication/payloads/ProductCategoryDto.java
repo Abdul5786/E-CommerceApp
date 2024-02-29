@@ -13,7 +13,7 @@ public class ProductCategoryDto
 {
     private Long productCatId;
     private String productCategory;
-    private  String description;
+    private String description;
 
     @Override
     public String toString() {

@@ -2,12 +2,16 @@ package com.AbdulKhaliq.EcommerceApplication.controllers;
 
 import com.AbdulKhaliq.EcommerceApplication.config.AppConstants;
 import com.AbdulKhaliq.EcommerceApplication.payloads.ProductDto;
+import com.AbdulKhaliq.EcommerceApplication.services.FileService;
 import com.AbdulKhaliq.EcommerceApplication.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -18,7 +22,10 @@ public class ProductControllers
     @Autowired
     private ProductService productService;
 
-
+    @Autowired
+   private FileService fileService;
+   @Value("${project.image}")
+   private String path;
    @PostMapping(value = "/addProduct/{productCatId}")
    public ResponseEntity<ProductDto> addProduct(@RequestBody ProductDto productDto,@PathVariable  Long productCatId)
    {
@@ -45,4 +52,15 @@ public class ProductControllers
        List<ProductDto> dtoList = productService.searchProductByKeyword(productName, pageNumber, pageSize, sortOrder);
        return new ResponseEntity<>(dtoList,HttpStatus.FOUND);
    }
+    @PostMapping(value = "/image/upload/{productId}")
+   public ResponseEntity<ProductDto> uploadProductImage(@RequestParam("image")MultipartFile image,@PathVariable Long productId) throws IOException
+   {
+       ProductDto productDto = productService.getProductById(productId);
+       String fileName = fileService.uploadImage(path, image);
+       productDto.setImage(fileName);
+       ProductDto updateProductDto = productService.updateProduct(productDto,productId);
+       return new ResponseEntity<>(updateProductDto,HttpStatus.OK);
+   }
+
+
 }
