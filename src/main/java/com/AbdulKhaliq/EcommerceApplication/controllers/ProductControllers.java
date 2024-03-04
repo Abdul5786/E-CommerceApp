@@ -4,14 +4,20 @@ import com.AbdulKhaliq.EcommerceApplication.config.AppConstants;
 import com.AbdulKhaliq.EcommerceApplication.payloads.ProductDto;
 import com.AbdulKhaliq.EcommerceApplication.services.FileService;
 import com.AbdulKhaliq.EcommerceApplication.services.ProductService;
+import jakarta.servlet.http.HttpServlet;
+import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.util.StreamUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.List;
 
 @RestController
@@ -61,6 +67,14 @@ public class ProductControllers
        ProductDto updateProductDto = productService.updateProduct(productDto,productId);
        return new ResponseEntity<>(updateProductDto,HttpStatus.OK);
    }
+
+   // method to serve files
+     @GetMapping(value = "/getImage/{imageName}",produces = MediaType.IMAGE_JPEG_VALUE)
+    public void downloadImage(@PathVariable ("imageName") String imageName, HttpServletResponse response) throws IOException {
+        InputStream resource = this.fileService.getResource(path, imageName);
+                       response.setContentType(MediaType.IMAGE_JPEG_VALUE);
+        StreamUtils.copy(resource,response.getOutputStream());
+    }
 
 
 }
