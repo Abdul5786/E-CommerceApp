@@ -11,7 +11,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/register")
-public class UserController
+public class HomeControllers
 {
     @Autowired
     private UserService userService;

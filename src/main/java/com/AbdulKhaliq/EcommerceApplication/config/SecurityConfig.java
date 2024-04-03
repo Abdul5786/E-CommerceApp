@@ -33,11 +33,11 @@ public class SecurityConfig
     @Bean
    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception
    {
-
+//           ,"/api/v1/createAdmin","/api/v1/getAllUsers"
        http.csrf(csrf -> csrf.disable())
                .cors(cors->cors.disable())
                .authorizeHttpRequests(auth->auth
-                       .requestMatchers("/api/v1/create-user","/api/v1/createAdmin","/api/v1/getAllUsers").permitAll().anyRequest().authenticated())
+                       .requestMatchers("/api/register/createUser","/auth/Login").permitAll().anyRequest().authenticated())
                .exceptionHandling(ex -> ex.authenticationEntryPoint(point))
                .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
        http.addFilterBefore(filter, UsernamePasswordAuthenticationFilter.class);
