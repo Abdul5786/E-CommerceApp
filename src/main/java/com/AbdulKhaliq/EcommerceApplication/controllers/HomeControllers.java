@@ -5,29 +5,26 @@ import com.AbdulKhaliq.EcommerceApplication.entities.User;
 import com.AbdulKhaliq.EcommerceApplication.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1")
-public class UseController
+@RequestMapping("/api/register")
+public class UserController
 {
     @Autowired
     private UserService userService;
 
-     @PostMapping(value = "/create-user")
-    public ResponseEntity<User> createUser(User user)
+     @PostMapping(value = "/createUser")
+    public ResponseEntity<User> createUser(@RequestBody User user)
     {
         User created = userService.CreateUser(user);
         return ResponseEntity.ok(created);
     }
 
    @PostMapping(value = "/createAdmin")
-   public ResponseEntity<User> createAdmin(User user)
+   public ResponseEntity<User> createAdmin(@RequestBody  User user)
    {
        User createAdmin = userService.CreateAdmin(user);
        return ResponseEntity.ok(createAdmin);
