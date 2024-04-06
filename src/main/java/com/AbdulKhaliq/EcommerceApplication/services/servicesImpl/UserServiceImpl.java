@@ -1,4 +1,5 @@
 package com.AbdulKhaliq.EcommerceApplication.services.servicesImpl;
+import com.AbdulKhaliq.EcommerceApplication.entities.Cart;
 import com.AbdulKhaliq.EcommerceApplication.entities.User;
 import com.AbdulKhaliq.EcommerceApplication.enums.Roles;
 import com.AbdulKhaliq.EcommerceApplication.exception.ResponseMessageException;
@@ -25,6 +26,7 @@ public class UserServiceImpl  implements UserService
     public User CreateUser(User user)
     {
         Optional<User> byEmail = userRepo.findByEmail(user.getEmail());
+        Cart cart = new Cart(); // Adding cart to user profile while creating user
         if (byEmail.isPresent())
         {
             throw new ResponseMessageException(" user with email id : " + user.getEmail() +  "    already exist");
@@ -32,8 +34,22 @@ public class UserServiceImpl  implements UserService
 
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         user.setRoles(Roles.User);
+        user.setCart(cart);
         User savedUser = userRepo.save(user);
         return   savedUser;
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     }
 
